@@ -20,11 +20,11 @@ veuillez cocher les seules cases qui correspondent aux étapes validées.
 
 ### Avancement Point sur la partie puit UDP.
 
-[ ] la prise en compte de l' option -p est correcte
+[X] la prise en compte de l' option -p est correcte
 
-[ ] la création du socket UDP local du puit et la construction de son adresse est correcte
+[X] la création du socket UDP local du puit et la construction de son adresse est correcte
 
-[ ] la réception et l'affichage des messages reçus sont corrects
+[X] la réception et l'affichage des messages reçus sont corrects
 
 [ ] l'échange de messages tq décrits dans le cahier des charges entre vos versions source et puit de la version 1 de "tsock" est opérationnel
 
