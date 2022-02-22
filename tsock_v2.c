@@ -179,7 +179,7 @@ void main (int argc, char **argv){
     }
     else{
         if(source==1){ 
-            if(connect(sock, addr, sizeof(addr) == -1){printf("Erreur connect TCP");}
+            if(connect(sock,(struct sockaddr *)&addr, sizeof(addr) == -1){printf("Erreur connect TCP");}
             if (nb_message != -1){
                 int nb2 = 10;
             }else{
