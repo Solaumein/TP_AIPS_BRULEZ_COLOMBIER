@@ -1,4 +1,15 @@
 # AIPS
+
+# NOMS PRENOMS
+BRULEZ Onnig
+COLOMBIER Korentin
+
+# COMPILATION
+gcc -o tsocketudiant ./tsock_v3.c
+
+# Ce qui fonctionne :
+Envoi/reception en TCP/UDP. Commande -n, -l. Seul le formatage des messages n'est pas finalisé. Pour plus de détails, voir avancement.md
+
 ## TPs AIPS - 3 MIC
 
 L'objectif des TPs AIPS est de vous permettre de prendre en main de l’API socket avec comme objectif de mettre en oeuvre l’application « tsock » utilisée dans le TP d’introduction aux réseaux. Le langage de programmation utilisé est le C. Ces TPs sont une étape de préparation au BE AIPS.
