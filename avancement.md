@@ -31,13 +31,13 @@ veuillez cocher les seules cases qui correspondent aux étapes validées.
 ## Avancement sur la version 2 de tsock
 La version 2 intègre l’utilisation de TCP pour l’échange des messages. Veuillez renseigner les étapes que vous avez traitées.  
 
-[ ] la création du socket TCP local du puit et la construction de son adresse est correcte
+[X] la création du socket TCP local du puit et la construction de son adresse est correcte
 
-[ ] l'acceptation de la demande d'établissement de connexion de la primitive "accept" est effective 
+[X] l'acceptation de la demande d'établissement de connexion de la primitive "accept" est effective 
 
-[ ] la réception et l'affichage des messages reçus  (en utilisant nc ou la version "enseignant" de tsock comme source)  sont corrects 
+[X] la réception et l'affichage des messages reçus  (en utilisant nc ou la version "enseignant" de tsock comme source)  sont corrects 
 
-[ ] l'échange de messages entre vos versions source et puit de la version 1 de "tsock" est opérationnel
+[X] l'échange de messages entre vos versions source et puit de la version 1 de "tsock" est opérationnel
 
 ## Avancement version 3 de tsock
 
@@ -47,7 +47,7 @@ La version v3 de tsock intègre les fonctions de formatage et d'affichage des me
 
 [ ] la prise en compte de l'option -n en émission aussi bien avec UDP et TCP est correcte
 
-[ ] la prise en compte de l'option -n en réception avec UDP est correcte
+[X] la prise en compte de l'option -n en réception avec UDP est correcte
 
 [ ] la prise en compte de l'option -n en réception avec TCP est correcte
 
