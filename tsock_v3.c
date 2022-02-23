@@ -53,7 +53,7 @@ void main (int argc, char **argv){
 
 	/* Parcours des options */
     int c =-1;
-	while ((c = getopt(argc, argv, "pn:su")) != -1) {
+	while ((c = getopt(argc, argv, "pn:sul:")) != -1) {
 		switch (c) {
 			case 'p':
 				if (source == 1) {
@@ -75,19 +75,22 @@ void main (int argc, char **argv){
 			case 'u':
 				udp = 1;
 				break;
+			case 'l':
+				lg = atoi(optarg);
+				break;
+
+
 			default:
 				printf("Option non reconnu\nusage: cmd [-p|-s][-n ##]\n");
 				break;
 		}
 	}
-
 	if (udp==1){
 		sock = socket(AF_INET,SOCK_DGRAM,0);
 		if (sock == -1){
 			printf("Echec creation socket");
 		}
 	}else{
-		printf("TCP\n"); // a enlever plus tard
         sock = socket(AF_INET,SOCK_STREAM,0);
         if (sock == -1){
             printf("Echec creation socket");
@@ -126,7 +129,7 @@ void main (int argc, char **argv){
 		printf("Mode source\n");
 	}else{
 		printf("mode puits\n");
-		if(bind(sock, (struct sockaddr *)&addr, sizeof(addr)) ==-1){printf("Erreur bind\n");}  
+		if(bind(sock, (struct sockaddr *)&addr, sizeof(addr)) ==-1){perror("Erreur bind\n");}  
 	}
     if(udp==1){
 	if (nb_message != -1){
@@ -136,17 +139,20 @@ void main (int argc, char **argv){
 			for (i=0;i<nb_message;i++) {
 				construire_message(message,'a',lg);
 				if((sendto(sock,message,lg,0,(struct sockaddr *)&addr,sizeof(addr)))==-1){printf("Erreur envoi message\n");}
-				else {printf("message envoye\n");}
+				else {printf("SOURCE: Envoi n°%d (%d) [%s]\n",i+1, lg, message);}
 			}
 		}else {
 			printf("nb de tampons à recevoir : %d\n", nb_message);
+			int i = 0;
 			while(nb_message > 0){
 				nb_message--;
 				int paddr_src = sizeof(addr_src);
 				if (recvfrom(sock, pmessage,lg,0,(struct sockaddr *)&addr_src,&paddr_src)==-1){
 					perror("Erreur reception\n");
 				}else{
-					afficher_message(pmessage,lg);
+					//afficher_message(pmessage,lg);
+					printf("PUITS: Reception n°%d (%d) [%s]\n",i+1, lg, pmessage);
+					i++;
 				}
 			}
 		}
@@ -160,17 +166,20 @@ void main (int argc, char **argv){
 				if((sendto(sock,message,lg,0,(struct sockaddr *)&addr,sizeof(addr)))==-1){
 					printf("Erreur envoi message\n");
 				}else {
-					printf("message envoye\n");
+					printf("SOURCE: Envoi n°%d (%d) [%s]\n",i+1, lg, message);
 				}
 			}
 		}else {
 			printf("nb de tampons à recevoir = infini\n");
+			int i =0;
 			while(1){
 				int paddr_src = sizeof(addr_src);
 				if (recvfrom(sock, pmessage,lg,0,(struct sockaddr *)&addr_src,&paddr_src)==-1){
 					perror("Erreur reception\n");
 				}else {
-					afficher_message(pmessage,lg);
+					//afficher_message(pmessage,lg);
+					printf("PUITS: Reception n°%d (%d) [%s]\n",i+1, lg, pmessage);
+					i++;
 				}
 			}
 		}
@@ -187,13 +196,12 @@ void main (int argc, char **argv){
                 nb2 = nb_message;
             }
             int i = 0;
-            printf("%d",nb_message);
             for(i=0;i<nb2;i++){
                 construire_message(message,'a',lg);
-				printf("for");
                 if((write(sock,message,lg))==-1){
                     printf("Erreur write\n");
                 }
+				else {printf("SOURCE: Envoi n°%d (%d) [%s]\n",i+1, lg, message);} 
             }
 
 
@@ -212,9 +220,10 @@ void main (int argc, char **argv){
 			int lg_mess;
             if (nb_message != -1){ 
             for(i=0; i< nb_message; i++){
-                if (lg_mess = read(sock2, pmessage, lg)==-1){printf("Erreur read\n ");}  
+                if ((lg_mess = read(sock2, pmessage, lg))==-1){printf("Erreur read\n ");}  
 
-                else{afficher_message(pmessage, lg_mess);} 
+                else{printf("PUITS: Reception n°%d (%d) [%s]\n",i+1, lg, pmessage);
+				} 
 
            } 
             } 
@@ -228,7 +237,8 @@ void main (int argc, char **argv){
                     printf("PUITS: Reception n°%d (%d) [%s]\n",i+1, lg, pmessage);
                     i++;
                     }  
-                } 
+                }
+				close(sock2); 
 
         } 
     }  
